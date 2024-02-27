@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isimm_app5/core/utils/color_manager.dart';
 import 'package:isimm_app5/presentation/homescreen/widgets/news_item.dart';
 
 class ListOfNews extends StatefulWidget {
@@ -15,11 +16,11 @@ class _ListOfNewsState extends State<ListOfNews> {
     "assets/images/news.jpg",
     "assets/images/news1.jpg",
     "assets/images/robotHack.jpg",
-    ];
+  ];
   List<String> desc_list = [
     "The list of candidates admitted to the Professional Master's in New and Renewable Energies for the academic year 2023-2024.",
-    "Embark on intellectual excellence in Casablanca with a Master's degree, merging tradition and innovation. Elevate your expertise amidst a vibrant environment",
-    "Dive into innovation at our Robot Hackathon! Unleash creativity, code, and circuits. Join tech enthusiasts for a day of collaboration and robotics exploration."
+    "Embark on intellectual excellence in Casablanca with a Master's degree, merging tradition and innovation.",
+    "Dive into innovation at our Robot Hackathon! code, and circuits. Join tech enthusiasts for a day of collaboration and robotics exploration."
   ];
   @override
   void initState() {
@@ -46,10 +47,9 @@ class _ListOfNewsState extends State<ListOfNews> {
               Container(
                   child: NewsItem(
                 imagepath: img_list[activeIndex],
-                description:desc_list[activeIndex],
+                description: desc_list[activeIndex],
                 onPressed: () {},
               )),
-            
             ],
           ),
         ),
@@ -75,13 +75,13 @@ class _ListOfNewsState extends State<ListOfNews> {
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           fontFamily: "Noto_Sans",
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: const Color.fromARGB(255, 159, 31, 22),
+                          fontWeight: FontWeight.w700,
+                          color: ColorManager.primary,
                         ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_rounded,
-                    color: const Color.fromARGB(255, 159, 31, 22),
+                    color: ColorManager.primary,
                   )
                 ],
               ),
@@ -112,7 +112,7 @@ class _ListOfNewsState extends State<ListOfNews> {
       height: 8,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: index == activeIndex ? Colors.blue : Colors.grey,
+        color: index == activeIndex ? ColorManager.primary : Colors.grey,
       ),
     );
   }

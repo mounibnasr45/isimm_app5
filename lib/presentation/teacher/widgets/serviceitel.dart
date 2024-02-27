@@ -36,8 +36,8 @@ class ServiceItem extends StatelessWidget {
             Text(
               name,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                   color: Colors.black),
             ),
             SizedBox(

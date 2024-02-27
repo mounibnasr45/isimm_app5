@@ -1,23 +1,40 @@
 class StudentData {
   final int? student_id;
   String nom;
+  String email;
+  String password;
   int? id_section;
-  int nbAbsent;
+
   StudentData({
-    this.id_section,
+    required this.id_section,
     required this.nom,
-    required this.nbAbsent,
-    this.student_id,
+    required this.student_id,
+    required this.email,
+    required this.password,
   });
-  factory StudentData.fromJson(List<dynamic> json) =>
+
+  factory StudentData.fromJson(Map<String, dynamic> json) =>
       _$StudentDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StudentDataToJson(this);
 }
 
-StudentData _$StudentDataFromJson(List<dynamic> json) {
+StudentData _$StudentDataFromJson(Map<String, dynamic> json) {
   return StudentData(
-    student_id: json[0] as int,
-    nom: json[1] as String,
-    id_section: json[2] as int,
-    nbAbsent: json[3] as int,
+    email: json["email"] as String,
+    nom: json["name"] as String,
+    password: json["password"] as String,
+    id_section: json["section"]["section_id"] as int,
+    student_id: json["student_id"] as int,
   );
 }
+
+Map<String, dynamic> _$StudentDataToJson(StudentData instance) => {
+  'student_id': instance.student_id,
+  'name': instance.nom,
+  'email': instance.email,
+  'password': instance.password,
+  'section': {
+    'section_id': instance.id_section,
+  },
+};

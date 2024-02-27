@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:isimm_app5/domain/use_cases/signupusecase.dart';
 import 'package:isimm_app5/injector.dart';
 import 'package:isimm_app5/presentation/login/view/loginview.dart';
 import 'package:isimm_app5/presentation/shared/shared_functions.dart';
@@ -23,7 +24,12 @@ import '../widgets/signupButton.dart';
 class SignupView extends StatelessWidget {
   SignupView({super.key});
 
-  final SignupCubit _SignupCubit = instance<SignupCubit>();
+  final SignupCubit _SignupCubit = SignupCubit(
+      SignupUseCase(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController(),
+      TextEditingController());
   double setwidth(double w) {
     return ScreenUtil().setWidth(w);
   }
@@ -61,11 +67,31 @@ class SignupView extends StatelessWidget {
                     BlocConsumer<SignupCubit, SignupState>(
                         listener: (context, state) {
                       if (state is SignupLoaded) {
-                        LoginAlert.show(context, "Success",
-                            "Registration successful", "OK");
+                        // LoginAlert(context, "Success",
+                        //     "Registration successful", "OK");
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Success"),
+                              content: Text("Registration successful"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(
+                                      context,
+                                    );
+                                 
+                                  },
+                                  child: Text("OK"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       } else if (state is Is_Login) {
-                       // LoginAlert.show(context, "Success",
-                         //   "Registration successful", "OK");
+                        // LoginAlert.show(context, "Success",
+                        //   "Registration successful", "OK");
 
                         login_func(context);
                         _SignupCubit.loginClicked();
@@ -211,7 +237,10 @@ Padding logo_login(double setwidth(double w), double setheight(double h)) {
   return Padding(
     padding:
         EdgeInsets.symmetric(horizontal: setwidth(20), vertical: setheight(30)),
-    child: Image.asset("assets/images/login_logo - Copy.png"),
+    child: Image.asset(
+      "assets/images/login_logo - Copy.png",
+      color: Colors.white,
+    ),
   );
 }
 
@@ -221,32 +250,4 @@ void login_func(BuildContext context) {
 
 void signup_func(BuildContext context) {
   Navigator.pushReplacementNamed(context, Routes.loginRoute);
-}
-
-class CustomButton extends StatelessWidget {
-  const CustomButton({
-    super.key,
-    required this.label,
-  });
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        // Your button click logic here
-        Navigator.pushReplacementNamed(context, Routes.homeRoute);
-      },
-      child: Text(label),
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(10.0), // Adjust the radius as needed
-          ),
-        ),
-      ),
-    );
-  }
 }

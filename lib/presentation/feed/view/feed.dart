@@ -2,10 +2,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:isimm_app5/core/utils/color_manager.dart';
 import 'package:isimm_app5/core/utils/valurs_manager.dart';
 
 import '../../homescreen/widgets/BuildImageWithNumber.dart';
 import '../../homescreen/widgets/bannerList_of_news.dart';
+import '../widgets/infobar.dart';
 
 class FeedPage extends StatefulWidget {
   const FeedPage({super.key});
@@ -44,6 +46,7 @@ class _FeedPageState extends State<FeedPage>
 
   @override
   Widget build(BuildContext context) {
+    double widthscreen=MediaQuery.of(context).size.width;
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -53,11 +56,17 @@ class _FeedPageState extends State<FeedPage>
           const Divider(
             height: 3,
           ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: widthscreen*0.1,vertical: 10),
+              child: Image.asset(
+                "assets/images/login_logo.png",
+                height: 50,
+              )),
           ImageSlideshow(
             width: double.infinity,
             height: 215,
             initialPage: 0,
-            indicatorColor: Colors.blue,
+            indicatorColor: ColorManager.lightPrimary,
             indicatorBackgroundColor: Colors.grey,
             onPageChanged: (value) {
               setState(() {
@@ -194,13 +203,14 @@ class _FeedPageState extends State<FeedPage>
             child: Container(
               height: 1.5,
               width: 100,
-              color: const Color.fromARGB(255, 3, 41, 72),
+              color: Color.fromARGB(255, 8, 64, 110),
             ),
           ),
           const ListOfNews(),
           const SizedBox(
-            height: 100,
+            height: 40,
           ),
+          InfoBar()
         ],
       ),
     );
@@ -220,7 +230,7 @@ class IsimmInNumbers extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: const Color.fromARGB(255, 3, 41, 72),
+          color: ColorManager.primary,
         ),
         child: const Padding(
           padding: EdgeInsets.all(10.0),
@@ -243,7 +253,7 @@ class WhyIsimm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Align(
+    return Align(
       alignment: Alignment.centerLeft,
       child: Padding(
         padding: const EdgeInsets.only(left: 18.0),
@@ -253,7 +263,7 @@ class WhyIsimm extends StatelessWidget {
               fontSize: 22,
               fontFamily: "Noto_Sans",
               fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 3, 41, 72)),
+              color: ColorManager.primary),
         ),
       ),
     );
@@ -274,7 +284,7 @@ class IsimmIntro extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .bodyMedium!
-            .copyWith(fontWeight: FontWeight.w600,fontSize: 13),
+            .copyWith(fontWeight: FontWeight.w600, fontSize: 13),
       ),
     );
   }
@@ -339,11 +349,11 @@ class icon_Text extends StatelessWidget {
         ),
         Text(
           first,
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 14,
               //fontFamily: "Cabin",
               fontWeight: FontWeight.w600,
-              color: Color.fromARGB(255, 2, 32, 56)),
+              color: ColorManager.darkPrimary),
         ),
       ],
     );

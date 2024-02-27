@@ -7,6 +7,7 @@ import 'package:isimm_app5/presentation/Studentschedule/view/schedule.dart';
 import 'package:isimm_app5/presentation/homescreen/view/homescreen.dart';
 import 'package:isimm_app5/presentation/login/view/loginview.dart';
 import 'package:isimm_app5/presentation/sendnews/news/news.dart';
+import 'package:isimm_app5/presentation/signup/view/signupview.dart';
 import 'package:isimm_app5/presentation/teacher/view/teacherview.dart';
 
 import '../presentation/marks/view/studentmarksView.dart';
@@ -27,10 +28,10 @@ class _MyAppState extends State<MyApp> {
       builder: DevicePreview.appBuilder,
       onGenerateRoute: RouteGenerator.getRoute,
       theme: ThemeData.from(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 2, 69, 63))),
-      home: HomeScreen(),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 2, 69, 63))),
 
-      // initialRoute: Routes.loginRoute,
+      initialRoute: Routes.loginRoute,
     );
   }
 }

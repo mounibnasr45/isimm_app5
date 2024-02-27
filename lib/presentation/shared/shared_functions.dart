@@ -8,13 +8,13 @@ class Dimension {
 
 int TdToInt(String tdName) {
   switch (tdName) {
-    case 'cpi1':
+    case 'CPI1':
       return 1;
       break;
-    case 'cpi2':
+    case 'CPI2':
       return 2;
       break;
-    case 'l1info':
+    case 'L1INFO':
       return 3;
       break;
 

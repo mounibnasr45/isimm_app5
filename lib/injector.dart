@@ -29,85 +29,41 @@ import 'presentation/login/cubit/login_cubit.dart';
 
 final instance = GetIt.instance;
 
-// Future<void> initAppModule() async {
-//     instance.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
-//   instance.registerLazySingleton<FirebaseAuthentication>(() => FirebaseAuthentication());
-//   instance.registerLazySingleton<Repository>(() => Repositoryimpl(instance(), instance()));
-// }
-
-// void initLoginModule() {
-//   print("aya wink aa");
-//   // Check if loginUseCase is already registered
-//   if (!GetIt.I.isRegistered<loginUseCase>()) {
-//     // Register Repository before loginUseCase
-//     initAppModule();
-
-//     // Register loginUseCase and LoginCubit
-//     instance.registerFactory<loginUseCase>(() => loginUseCase(instance()));
-//     instance.registerFactory<LoginCubit>(() => LoginCubit(instance()));
-//   } else {
-//     print("c la hachwa");
-//   }
-// }
-Future<void> initAppModule() async {
+void initAppModule() {
   if (!GetIt.I.isRegistered<NetworkInfo>()) {
     instance.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
-    instance.registerLazySingleton<FirebaseAuthentication>(
-        () => FirebaseAuthentication());
-
-    instance.registerLazySingleton<Repository>(
-        () => Repositoryimpl(instance(), instance()));
-
-    /* instance.registerLazySingleton<SeanceRemoteDataSource>(
-        () => SeanceRemoteDataSource(dio: Dio()));
-
-
-
+ 
     instance.registerLazySingleton<SeanceRepository>(
-        () => SeanceRepositoryImpl(remoteDataSource: instance()));*/
+        () => SeanceRepositoryImpl(remoteDataSource: instance()));
   }
 }
 
 void initLoginModule() {
-  print("aya wink aa");
-  // Check if loginUseCase is already registered
   if (!GetIt.I.isRegistered<loginUseCase>()) {
-    // Register Repository before loginUseCase
     initAppModule();
     initSignupModule();
     initSeanceTeacher();
     initPresenceSheet();
     initMarks();
-    // Create instances of TextEditingController
+    
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-
-    // Register loginUseCase and LoginCubit with instances of TextEditingController
+    instance.registerLazySingleton<SeanceRemoteDataSource>(
+        () => SeanceRemoteDataSource(dio: Dio()));
+ 
+    instance.registerLazySingleton<PresenceSheetData>(
+        () => PresenceSheetData(dio: Dio()));
+    instance.registerLazySingleton<PresenceSheetRepo>(
+        () => PresenceSheetImpl(presencesheet: instance()));
+    instance.registerLazySingleton<MarksRequest>(() => MarksRequest(dio: Dio()));
+    instance.registerLazySingleton<MarksRepo>(
+        () => MarksRepositoryImpl(marksRequest: instance()));
     instance.registerFactory<loginUseCase>(() => loginUseCase(instance()));
     instance.registerFactory<LoginCubit>(() => LoginCubit(
           instance(),
           emailController,
           passwordController,
         ));
-
-    instance.registerLazySingleton<SeanceRemoteDataSource>(
-        () => SeanceRemoteDataSource(dio: Dio()));
-
-    instance.registerLazySingleton<SeanceRepository>(
-        () => SeanceRepositoryImpl(remoteDataSource: instance()));
-
-    instance.registerLazySingleton<PresenceSheetData>(
-        () => PresenceSheetData(dio: Dio()));
-
-    instance.registerLazySingleton<PresenceSheetRepo>(
-        () => PresenceSheetImpl(presencesheet: instance()));
-    instance
-        .registerLazySingleton<MarksRequest>(() => MarksRequest(dio: Dio()));
-
-    instance.registerLazySingleton<MarksRepo>(
-        () => MarksRepositoryImpl(marksRequest: instance()));
-  } else {
-    print("injection :c la hachwa");
   }
 }
 
@@ -119,7 +75,7 @@ void initSignupModule() {
   TextEditingController tdController = TextEditingController();
   instance.registerFactory<SignupCubit>(() => SignupCubit(instance(),
       emailController, passwordController, nameController, tdController));
-  instance.registerFactory<SignupUseCase>(() => SignupUseCase(instance()));
+  //instance.registerFactory<SignupUseCase>(() => SignupUseCase(instance()));
 }
 
 void initSeanceTeacher() {

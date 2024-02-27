@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:isimm_app5/data/models/studentdata.dart';
 import 'package:isimm_app5/presentation/login/cubit/login_state.dart';
 
 import '../../../core/failure/failure.dart';
@@ -52,17 +53,18 @@ class LoginCubit extends Cubit<LoginState> implements AuthCubit {
       emit(PasswordIsEmpty());
     } else {
       try {
-        final Either<Failure, void> result = await _loginUseCase.execute(
-          LoginUseCaseInput(
-            email: _emailController.text,
-            password: _passwordController.text,
-          ),
+        Map<String, String> loginmap = {
+          "email": _emailController.text,
+          "password": _passwordController.text,
+        };
+        final Either<Failure, StudentData> result = await _loginUseCase.execute(
+          loginmap
         );
 
         if (!isClosed) {
           emit(result.fold(
             (failure) => LoginError(message: failure.failureMessage),
-            (userCred) => LoginLoaded(),
+            (userCred) => LoginLoaded(s: userCred),
           ));
         }
       } catch (e) {

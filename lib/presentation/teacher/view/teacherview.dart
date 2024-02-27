@@ -29,7 +29,7 @@ class TeacherView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.backgroundColor,
+      backgroundColor: ColorManager.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +40,7 @@ class TeacherView extends StatelessWidget {
               padding: EdgeInsets.all(15),
               //height: double.infinity,
               child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -56,7 +57,8 @@ class TeacherView extends StatelessWidget {
                         if (services[index][1] == "Add Courses")
                           Navigator.of(context).pushNamed(Routes.chapterRoute);
                         if (services[index][1] == "Schedule")
-                          Navigator.of(context).pushNamed(Routes.teacherSchedule);
+                          Navigator.of(context)
+                              .pushNamed(Routes.teacherSchedule);
                         if (services[index][1] == "Send News")
                           Navigator.of(context).pushNamed(Routes.sendnews);
                       });
@@ -69,9 +71,3 @@ class TeacherView extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

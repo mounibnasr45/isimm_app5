@@ -29,7 +29,7 @@ class Marks extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Container(
-                  color: Color.fromARGB(159, 151, 197, 223),
+                  color: ColorManager.primary,
                   // height: 120,
                   width: double.infinity,
                   child: Row(
@@ -135,7 +135,7 @@ class Marks extends StatelessWidget {
                   listener: (BuildContext context, Object? state) {},
                   builder: (context, state) {
                     if (state is MarksLoaded) {
-                     return Expanded(
+                      return Expanded(
                         flex: 8,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -173,42 +173,37 @@ class Marks extends StatelessWidget {
                             rows: List<DataRow>.generate(
                               8,
                               (index) => DataRow(cells: [
-                                DataCell(Text(state.marksList[index].subjectName,
-                                    style:const TextStyle(
-                                         fontSize: 16,
-                                        fontWeight: FontWeight.w700
-                                       )
-                                        )
-                                        ),
-                                DataCell(Text(state.marksList[index].tp.toString(),
-                                    style:const TextStyle(
-                             
-                                        fontWeight: FontWeight.w400)
-                                        )),
-                                DataCell(Text(state.marksList[index].ds.toString(),
-                                    style:const TextStyle(
-                             
-                                        fontWeight: FontWeight.w400)
-                                        )),
-                            
-                                DataCell(Text(state.marksList[index].exam.toString(),
-                                    style:const TextStyle(
-                             
-                                        fontWeight: FontWeight.w400)
-                                        ),),
+                                DataCell(Text(
+                                    state.marksList[index].subjectName,
+                                    style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700))),
+                                DataCell(Text(
+                                    state.marksList[index].tp.toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400))),
+                                DataCell(Text(
+                                    state.marksList[index].ds.toString(),
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w400))),
+                                DataCell(
+                                  Text(state.marksList[index].exam.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w400)),
+                                ),
                               ]),
                             ),
                           ),
                         ),
                       );
                     } else {
-                     return const CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
                   }),
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: const EdgeInsets.only(top:20,right: 40),
+                  padding: const EdgeInsets.only(top: 20, right: 40),
                   child: Align(
                     alignment: Alignment.topRight,
                     child: Text("Status:Success  MOY=12,33"),

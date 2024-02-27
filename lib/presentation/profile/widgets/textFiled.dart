@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:isimm_app5/core/utils/color_manager.dart';
 
 class Item extends StatelessWidget {
   const Item(
@@ -12,7 +13,7 @@ class Item extends StatelessWidget {
     return Container(
       height: 55,
       decoration: BoxDecoration(
-          color: Color.fromARGB(255, 148, 198, 221),
+          color: ColorManager.lightPrimary.withOpacity(0.65),
           borderRadius: BorderRadius.circular(15)),
       margin: EdgeInsets.only(left: 30, right: 30, top: 15, bottom: 7),
       child: Row(

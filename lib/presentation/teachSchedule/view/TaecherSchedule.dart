@@ -36,7 +36,7 @@ class _TaecherScheduleState extends State<TaecherSchedule> {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.arrow_back)),
-            elevation: 20,
+           // elevation: 20,
             title: Text(
               "Schedule Screen",
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(),

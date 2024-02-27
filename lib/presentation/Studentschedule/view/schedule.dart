@@ -22,10 +22,10 @@ class _StudentSceduleState extends State<StudentScedule> {
   void _generateRandomSessions() {
     // Liste des matières
     List<String> subjects = [
-      'ML',
+      'O.S',
       'Algorithms',
-      'Deep Learning',
-      'Anglais',
+      'python',
+      'english',
       'c++',
       'java',
       'oop',
@@ -89,29 +89,29 @@ class _StudentSceduleState extends State<StudentScedule> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          // automaticallyImplyLeading: false,
           backgroundColor: ColorManager.backgroundColor,
           //toolbarHeight: 90.0,
-          title: Text("Schedule Screen"),
+          title: Text(
+            "Schedule Screen",
+            style: TextStyle(
+              color: ColorManager.primary,
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
               child: Text(
-                "Groupe TD:ING1_INFO_TD2 ",
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text(
-                "From 15/02/2024 ",
+                "TD Group: CPI1 ",
                 style: Theme.of(context)
                     .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: Color.fromARGB(255, 175, 11, 11)),
+                    .titleMedium!
+                    .copyWith(color: ColorManager.darkPrimary),
               ),
             ),
             SizedBox(
@@ -141,10 +141,11 @@ class _StudentSceduleState extends State<StudentScedule> {
                         use24HourFormat: true,
                         setTimeOnAxis: false,
                         style: TimePlannerStyle(
-                          showScrollBar: true,
-                          interstitialEvenColor: Colors.grey[50],
-                          interstitialOddColor: Colors.grey[200],
-                        ),
+                            showScrollBar: true,
+                            interstitialEvenColor: Colors.grey[50],
+                            interstitialOddColor: Colors.grey[200],
+                            cellHeight: 85,
+                            cellWidth: 95),
                         headers: const [
                           TimePlannerTitle(
                             date: "3/11/2023",

@@ -24,6 +24,8 @@ class TwoButtons2 extends StatelessWidget {
           onPressed: () {
             login_func(context);
             BlocProvider.of<SignupCubit>(context).loginClicked();
+            BlocProvider.of<LoginCubit>(context).loginClicked();
+            BlocProvider.of<LoginCubit>(context).initializeControllers();
           },
           child: Text(
             "Login",

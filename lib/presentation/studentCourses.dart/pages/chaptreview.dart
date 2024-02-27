@@ -31,7 +31,7 @@ class ChapterPage extends StatelessWidget {
               Navigator.of(context).pop();
             },
           ),
-          title:  Text(
+          title: Text(
             "CPI1 Courses",
             style: TextStyle(
               color: ColorManager.primary,
@@ -51,7 +51,7 @@ class ChapterPage extends StatelessWidget {
               //chapter_appBar(),
 
               const Padding(
-                padding: EdgeInsets.fromLTRB(30, 30, 0, 20),
+                padding: EdgeInsets.fromLTRB(30, 20, 0, 20),
                 child: Column(
                   children: [
                     Text(
@@ -108,7 +108,7 @@ class ChapterPage extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.only(top: 20),
                   decoration: BoxDecoration(
-                      color: ColorManager.backgroundColor,
+                      color: ColorManager.white,
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,

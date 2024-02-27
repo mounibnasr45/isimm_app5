@@ -4,13 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'routes_manager.dart';
 
-double setwidth(double w) {
-    return ScreenUtil().setWidth(w);
-  }
+// double setwidth(double w) {
+//     return ScreenUtil().setWidth(w);
+//   }
 
-  double setheight(double h) {
-    return ScreenUtil().setHeight(h);
-  }
+//   double setheight(double h) {
+//     return ScreenUtil().setHeight(h);
+//   }
 void login_func(BuildContext context) {
   Navigator.pushReplacementNamed(context, Routes.loginRoute);
 }

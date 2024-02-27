@@ -29,21 +29,11 @@ class LoginView extends StatelessWidget {
   LoginView({super.key});
 
 
-  final LoginCubit _loginCubit = instance<LoginCubit>();
-  double setwidth(double w) {
-    return ScreenUtil().setWidth(w);
-  }
-
-  double setheight(double h) {
-    return ScreenUtil().setHeight(h);
-  }
-
   var prefs = AppPreferences.getPrefs();
   bool ischecked = false;
   bool showError = false;
   @override
   Widget build(BuildContext context) {
-    
     ScreenUtil.init(context);
     return FutureBuilder<bool>(
         future: AppPreferences.loadRememberCheckBoxState(),
@@ -57,7 +47,7 @@ class LoginView extends StatelessWidget {
           } else {
             // La valeur a été récupérée avec succès, effectuer la vérification et la navigation.
             bool rememberCheckBoxValue = snapshot.data ?? false;
-          //  bool rememberCheckBoxValue = false;
+            //  bool rememberCheckBoxValue = false;
 
             if (rememberCheckBoxValue) {
               // Navigation différée au prochain cycle de construction
@@ -65,125 +55,98 @@ class LoginView extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, Routes.homeRoute);
               });
             }
-            return BlocProvider(
-              create: (context) => _loginCubit,
-              child: Scaffold(
-                backgroundColor: ColorManager.primary,
-                body: SafeArea(
-                  child: Column(
-                    children: [
-                      const logoLogin(),
-                      getContent(context),
-                    ],
+            return BlocBuilder<LoginCubit, LoginState>(
+              builder: (context, state) {
+                return Scaffold(
+                  backgroundColor: ColorManager.primary,
+                  body: SafeArea(
+                    child: Column(
+                      children: [
+                        const logoLogin(),
+                        getContent(context, state),
+                      ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             );
           }
         });
   }
 
-  Container getContent(BuildContext context) {
+  Container getContent(BuildContext context, LoginState state) {
+    // Use context.read to obtain the LoginCubit
+    final _loginCubit = context.read<LoginCubit>();
+
     return Container(
-                      padding: EdgeInsets.symmetric(horizontal: setwidth(10)),
-                      height: Dimension.ScreenHeight(context) - 220,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50.0),
-                          topRight: Radius.circular(50.0),
-                        ),
-                        // Add your desired background color here
-                        color: ColorManager.white,
-                      ),
+      padding: EdgeInsets.symmetric(horizontal: (10)),
+      height: Dimension.ScreenHeight(context) - 220,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(50.0),
+          topRight: Radius.circular(50.0),
+        ),
+        color: ColorManager.white,
+      ),
+      child: Column(
+        children: [
+          BlocConsumer<LoginCubit, LoginState>(
+            listener: (context, state) {
+              if (state is LoginLoaded) {
+                tohome(context);
+              } else if (state is Is_Login) {
+                login_func(context);
+                _loginCubit.loginClicked();
+              } else if (state is Is_Signup) {}
+            },
+            builder: (context, state) {
+              return state is LoginLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Container(
+                      padding: EdgeInsets.symmetric(horizontal: (20)),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          BlocConsumer<LoginCubit, LoginState>(
-                              listener: (context, state) {
-                            /*alert +naviguer +  */
-                            if (state is LoginLoaded) {
-                             
-                              tohome(context);
-                            } else if (state is Is_Login) {
-                             
-                              login_func(context);
-                              _loginCubit.loginClicked();
-                            } else if (state is Is_Signup) {}
-                          }, builder: (context, state) {
-                            return state is LoginLoading
-                                ? const Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: setwidth(20)),
-                                    child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(
-                                            height: setheight(60),
-                                          ),
-                                          TwoButtons1(
-                                            islogin: _loginCubit.isLogin,
-                                          ),
-                                          SizedBox(
-                                            height: setheight(40),
-                                          ),
-                                          EmailField(
-                                            icon: true,
-                                            showError: state is LoginError
-                                                ? true
-                                                : false,
-                                            valid: state is EmailIsEmpty
-                                                ? false
-                                                : true,
-                                            controller:
-                                                _loginCubit.emailController,
-                                            errorMessage: "invalid email",
-                                          ),
-                                          SizedBox(
-                                            height: setheight(6),
-                                          ),
-                                          PasswordField(
-                                              showError: state is LoginError
-                                                  ? true
-                                                  : false,
-                                              valid: state is PasswordIsEmpty
-                                                  ? false
-                                                  : true,
-                                              controller: _loginCubit
-                                                  .passwordController),
-                                          SizedBox(
-                                            height: setheight(10),
-                                          ),
-                                          Row(
-                                            children: [
-                                              RememberCheckBox(
-                                                  selected: ischecked),
-                                              const Text(
-                                                "Remember me",
-                                                style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontSize: 14),
-                                              ),
-                                              Spacer(),
-                                              ForgotPassword(),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: setheight(40),
-                                          ),
-                                          const LoginButton(
-                                            label: "Login",
-                                          )
-                                        ]),
-                                  );
-                          }),
+                          SizedBox(height: (60)),
+                          TwoButtons1(islogin: _loginCubit.isLogin),
+                          SizedBox(height: (40)),
+                          EmailField(
+                            icon: true,
+                            showError: state is LoginError ? true : false,
+                            valid: state is EmailIsEmpty ? false : true,
+                            controller: _loginCubit.emailController,
+                            errorMessage: "invalid email",
+                          ),
+                          SizedBox(height: (6)),
+                          PasswordField(
+                            showError: state is LoginError ? true : false,
+                            valid: state is PasswordIsEmpty ? false : true,
+                            controller: _loginCubit.passwordController,
+                          ),
+                          SizedBox(height: (10)),
+                          Row(
+                            children: [
+                              RememberCheckBox(selected: ischecked),
+                              const Text(
+                                "Remember me",
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 14),
+                              ),
+                              Spacer(),
+                              ForgotPassword(),
+                            ],
+                          ),
+                          SizedBox(height: (40)),
+                          const LoginButton(label: "Login"),
                         ],
                       ),
                     );
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
-
-
-

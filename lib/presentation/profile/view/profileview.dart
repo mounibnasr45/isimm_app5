@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:isimm_app5/core/utils/app_prefs.dart';
+import 'package:isimm_app5/core/utils/color_manager.dart';
 import 'package:isimm_app5/core/utils/routes_manager.dart';
 import 'package:isimm_app5/presentation/profile/widgets/textFiled.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,7 @@ import '../widgets/editableTextField.dart';
 
 class Profile extends StatelessWidget {
   Profile({super.key});
+  
   TextEditingController FNcontroller = TextEditingController();
   TextEditingController LNcontroller = TextEditingController();
   TextEditingController TDcontroller = TextEditingController();
@@ -183,20 +186,42 @@ class Profile extends StatelessWidget {
                                           listen: false)
                                       .L[3]),
 
-                        SizedBox(height: 20,),
-                        Align(alignment: Alignment.bottomRight,
-                        
-                        child: 
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: GestureDetector(
-                            onTap: (){Navigator.pushReplacementNamed(
-                                    context, Routes.loginRoute);},
-                            child: Row(children: [
-                            Icon(Icons.logout,size: 20,),Text("Logout",style: Theme.of(context).textTheme.bodyMedium,),
-                          ],),),
-                        )
-                        )
+                          GestureDetector(
+                              onTap: () async {
+                                await AppPreferences.saveRememberCheckBoxState(
+                                    false);
+
+                                Navigator.pushReplacementNamed(
+                                    context, Routes.loginRoute);
+                              },
+                              child: Container(
+                                height: 55,
+                                padding: EdgeInsets.only(left: 25),
+                                decoration: BoxDecoration(
+                                    color: ColorManager.lightPrimary
+                                        .withOpacity(0.65),
+                                    borderRadius: BorderRadius.circular(15)),
+                                margin: EdgeInsets.only(
+                                    left: 30, right: 30, top: 15, bottom: 7),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.logout,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5
+                                      ),
+                                      child: Text(
+                                        "Logout",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ))
                         ],
                       ),
                     ),
@@ -241,8 +266,8 @@ class ProfileImage extends StatelessWidget {
             ),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(
-                18), // Appliquer le même rayon ici
+            borderRadius:
+                BorderRadius.circular(18), // Appliquer le même rayon ici
             child: Image.asset(
               "assets/images/monicca.png",
               fit: BoxFit.cover,

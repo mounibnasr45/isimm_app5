@@ -182,9 +182,9 @@ class _PresenceSheetState extends State<PresenceSheet> {
                                                 const Padding(
                                                     padding: EdgeInsets.all(5),
                                                     child: Text("Absent NB:")),
-                                                Text(state.Liststudents[index]
-                                                    .nbAbsent
-                                                    .toString()),
+                                                // Text(state.Liststudents[index]
+                                                //     .nbAbsent
+                                                //     .toString()),
                                                 const SizedBox(
                                                   width: 20,
                                                 ),

@@ -9,6 +9,7 @@ import 'package:isimm_app5/presentation/sendnews/news/news.dart';
 import 'package:isimm_app5/presentation/signup/view/signupview.dart';
 import 'package:isimm_app5/presentation/studentCourses.dart/pages/chaptreview.dart';
 
+import '../../presentation/Studentschedule/view/schedule.dart';
 import '../../presentation/homescreen/view/homescreen.dart';
 import '../../presentation/presences_heet/view/presence_sheet.dart';
 import '../../presentation/teachSchedule/view/TaecherSchedule.dart';
@@ -39,46 +40,44 @@ class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.loginRoute:
-        return MaterialPageRoute(builder: (_) =>  LoginView());
+        return MaterialPageRoute(builder: (_) => LoginView());
       case Routes.signup:
-        return MaterialPageRoute(builder: (_) =>  SignupView());
+        return MaterialPageRoute(builder: (_) => SignupView());
       case Routes.profile:
         return MaterialPageRoute(builder: (_) => Profile());
-     case Routes.teacherSchedule:
-       return MaterialPageRoute(builder: (_) => TaecherSchedule());
+      case Routes.teacherSchedule:
+        return MaterialPageRoute(builder: (_) => TaecherSchedule());
       case Routes.homeRoute:
         return MaterialPageRoute(builder: (_) => HomeScreen());
-     case Routes.presentsheet:
-  return MaterialPageRoute(
-    builder: (context) {
-      // Récupérer les arguments s'il y en a
-      final String? subjectName = settings.arguments as String?;
+      case Routes.presentsheet:
+        return MaterialPageRoute(
+          builder: (context) {
+            // Récupérer les arguments s'il y en a
+            final String? subjectName = settings.arguments as String?;
 
-      // Utiliser le sujet (subjectName) dans la construction de la page
-      return BlocProvider(
-        create: (context) => instance<PresenceSheetCubit>(),
-        child: PresenceSheet(subjectName: subjectName ?? 'Default Subject'));
-    },
-  );
-
+            // Utiliser le sujet (subjectName) dans la construction de la page
+            return BlocProvider(
+                create: (context) => instance<PresenceSheetCubit>(),
+                child: PresenceSheet(
+                    subjectName: subjectName ?? 'Default Subject'));
+          },
+        );
 
       case Routes.marks:
         return MaterialPageRoute(builder: (_) => Marks());
       case Routes.chapterRoute:
-        return MaterialPageRoute(
-            builder: (_) => ChapterPage());
+        return MaterialPageRoute(builder: (_) => ChapterPage());
       case Routes.sendnews:
-        return MaterialPageRoute(
-            builder: (_) => News("1"));
-     /* case Routes.teachView:
+        return MaterialPageRoute(builder: (_) => News("1"));
+      case Routes.studentSchedule:
+        return MaterialPageRoute(builder: (_) => StudentScedule());
+      /* case Routes.teachView:
         return MaterialPageRoute(builder: (_) => TeacherView());
       case Routes.student:
         return MaterialPageRoute(builder: (_) => const StudentLife());
       // case Routes.chapterRoute:
       //   return MaterialPageRoute(builder: (_) => Chapter(id: 'algo',));
 
-      case Routes.studentSchedule:
-        return MaterialPageRoute(builder: (_) => ScheduleView());
       // case Routes.classRoute:
       //   return MaterialPageRoute(builder: (_) => const ClassAbsent());
       /*case Routes.forgotPasswordRoute:

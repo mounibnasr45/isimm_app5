@@ -1,10 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isimm_app5/core/utils/color_manager.dart';
 import 'package:isimm_app5/presentation/homescreen/widgets/homeAppBar.dart';
+import 'package:isimm_app5/presentation/login/cubit/login_cubit.dart';
+import 'package:isimm_app5/presentation/login/cubit/login_state.dart';
 import 'package:isimm_app5/presentation/student/view/studentView.dart';
 import 'package:isimm_app5/presentation/studentCourses.dart/pages/chaptreview.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -31,9 +34,7 @@ class _HomeScreenState extends State<HomeScreen>
   List<Widget> pages = [
     const FeedPage(),
     StudentLife(),
-    
     TeacherView(),
-    //MapScreen(),
     Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -45,63 +46,67 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: ColorManager.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: HomeAppBar(),
-        ),
-        // appBar: PreferredSize(
-        //   preferredSize: const Size.fromHeight(90),
-        //   child: HomeAppBar(),
-        // ),
-        bottomNavigationBar: SalomonBottomBar(
-          currentIndex: _currentIndex,
-          onTap: (i) => setState(() {
-            _currentIndex = i;
-            _pageController.jumpToPage(i);
-          }),
-          items: [
-            /// Home
-            SalomonBottomBarItem(
-              icon: Icon(Icons.home),
-              title: Text("Home"),
-              selectedColor: ColorManager.darkPrimary,
-            ),
+    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+      print(state);
+      // Check if the current state is LoginLoaded
+      // if (state is LoginLoaded) {
+      return SafeArea(
+        child: Scaffold(
+          //backgroundColor: ColorManager.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(55),
+            child: HomeAppBar(mystate:state),
+          ),
 
-            /// Likes
-            SalomonBottomBarItem(
-              icon: Icon(Icons.school),
-              title: Text("Student"),
-              selectedColor: ColorManager.darkPrimary,
-            ),
-
-            /// Search
-            SalomonBottomBarItem(
-              
-              icon: Icon(Icons.co_present_rounded),
-              title: Text("Professor"),
-              selectedColor: ColorManager.darkPrimary,
-            ),
-
-            /// Profile
-            SalomonBottomBarItem(
-              icon: Icon(Icons.person),
-              title: Text("Profile"),
-              selectedColor: ColorManager.darkPrimary,
-            ),
-          ],
-        ),
-        body: PageView(
-            children: pages,
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
+          bottomNavigationBar: SalomonBottomBar(
+            currentIndex: _currentIndex,
+            onTap: (i) => setState(() {
+              _currentIndex = i;
+              _pageController.jumpToPage(i);
             }),
-      ),
-    );
+            items: [
+              /// Home
+              SalomonBottomBarItem(
+                icon: Icon(Icons.home),
+                title: Text("Home"),
+                selectedColor: ColorManager.darkPrimary,
+              ),
+
+              /// Likes
+              SalomonBottomBarItem(
+                icon: Icon(Icons.school),
+                title: Text("Student"),
+                selectedColor: ColorManager.darkPrimary,
+              ),
+
+              /// Search
+              SalomonBottomBarItem(
+                icon: Icon(Icons.co_present_rounded),
+                title: Text("Professor"),
+                selectedColor: ColorManager.darkPrimary,
+              ),
+
+              /// Profile
+              SalomonBottomBarItem(
+                icon: Icon(Icons.person),
+                title: Text("Profile"),
+                selectedColor: ColorManager.darkPrimary,
+              ),
+            ],
+          ),
+          body: PageView(
+              children: pages,
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              }),
+        ),
+      );
+      //  } else {
+      //    return CircularProgressIndicator();
+      //  }
+    });
   }
 }

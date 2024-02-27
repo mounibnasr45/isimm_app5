@@ -3,9 +3,8 @@ import 'package:isimm_app5/core/utils/color_manager.dart';
 
 import '../../../core/utils/routes_manager.dart';
 
-
 class StudentLife extends StatelessWidget {
-     StudentLife({super.key});
+  StudentLife({super.key});
 
   List Services = [
     [Icons.bookmark_outlined, "Courses", "4 models"],
@@ -26,10 +25,11 @@ class StudentLife extends StatelessWidget {
             padding: EdgeInsets.all(15),
             //height: double.infinity,
             child: GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                crossAxisSpacing: 15.0,
+                crossAxisSpacing: 20.0,
                 mainAxisSpacing: 15.0,
               ),
               itemCount: Services.length,
@@ -54,31 +54,28 @@ class StudentLife extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text(
-              "Models - Student life",
-                  style: TextStyle(
-              fontSize: 26,
-              fontFamily: "Noto_Sans",
-              fontWeight: FontWeight.bold,
-              color: ColorManager.darkPrimary)
-            ),
+            Text("Models - Student life",
+                style: TextStyle(
+                    fontSize: 26,
+                    fontFamily: "Noto_Sans",
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.darkPrimary)),
             SizedBox(
               height: 15,
             ),
             Text(
               "Hey UserName,",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontSize: 16,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                   ),
             ),
             Text(
-              "Maximize your academic potential with Notion's student templates. Easily organize your class notes, homework and projects. Keep track of your grades and goals.",
-               style: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(fontWeight: FontWeight.w600,fontSize: 16)
-            ),
+                "Maximize your academic potential with Notion's student templates. Easily organize your class notes, homework and projects. Keep track of your grades and goals.",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 14)),
             SizedBox(
               height: 0,
             ),
@@ -113,12 +110,14 @@ class ServiceItem extends StatelessWidget {
       onTap: () {
         if (index == 0)
           Navigator.of(context).pushNamed(Routes.chapterRoute);
+
         else if (index == 1)
           Navigator.of(context).pushNamed(Routes.studentSchedule);
+
         else if (index == 2)
           Navigator.of(context).pushNamed(Routes.chapterRoute);
-        else if (index == 3)
-          Navigator.of(context).pushNamed(Routes.marks);
+
+        else if (index == 3) Navigator.of(context).pushNamed(Routes.marks);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -131,21 +130,26 @@ class ServiceItem extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            if(index==1)
-            Image.asset("assets/images/schedule.png",height: 30,width: 30,color: Colors.black,)
+            if (index == 1)
+              Image.asset(
+                "assets/images/schedule.png",
+                height: 30,
+                width: 30,
+                color: Colors.black,
+              )
             else
-            Icon(
-              i,
-              size: 30,
-            ),
+              Icon(
+                i,
+                size: 30,
+              ),
             SizedBox(
               height: 20,
             ),
             Text(
               name,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                   color: Colors.black),
             ),
             SizedBox(

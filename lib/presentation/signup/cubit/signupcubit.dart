@@ -1,7 +1,11 @@
+import 'dart:js';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:isimm_app5/data/models/studentdata.dart';
 import 'package:isimm_app5/domain/use_cases/signupusecase.dart';
+import 'package:isimm_app5/presentation/shared/shared_functions.dart';
 
 import '../../../core/failure/failure.dart';
 import '../../login/cubit/login_cubit.dart';
@@ -49,7 +53,7 @@ class SignupCubit extends Cubit<SignupState> implements AuthCubit {
     print("td selected:$selectTd");
     //List<bool> test = _checkInput();
     //if (!test[0] || !test[1] || !test[2]) return;
-
+    int tdsection = TdToInt(selectTd);
     emit(SignupLoading());
     if (nameController.text.isEmpty) {
       emit(NameIsEmpty());
@@ -61,14 +65,17 @@ class SignupCubit extends Cubit<SignupState> implements AuthCubit {
       emit(ShortPassword());
     } else {
       try {
-        final Either<Failure, void> result = await _SignupUseCase.execute(
-          SignupUseCaseInput(
-            email: _emailController.text,
-            password: _passwordController.text,
-            name: _nameController.text,
-            td: selectTd,
-          ),
-        );
+        print("idsection $tdsection");
+        List<StudentData> liststudent = [
+          StudentData(
+              id_section: tdsection,
+              nom: nameController.text,
+              student_id: null,
+              email: emailController.text,
+              password: passwordController.text)
+        ];
+        final Either<Failure, List<StudentData>> result =
+            await _SignupUseCase.execute(liststudent);
 
         if (!isClosed) {
           emit(

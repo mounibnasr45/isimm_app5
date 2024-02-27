@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:isimm_app5/core/utils/color_manager.dart';
 import 'package:isimm_app5/presentation/signup/cubit/signupcubit.dart';
 
 class signupButton extends StatelessWidget {
@@ -27,8 +28,7 @@ class signupButton extends StatelessWidget {
       style: ButtonStyle(
         fixedSize: MaterialStateProperty.all<Size>(Size(300.0,
             35.0)), // Ajustez la largeur (200.0) et la hauteur (50.0) selon vos besoins
-        backgroundColor: MaterialStateProperty.all<Color>(
-            const Color.fromARGB(255, 13, 123, 178)),
+        backgroundColor: MaterialStateProperty.all<Color>(ColorManager.primary),
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(
             borderRadius:

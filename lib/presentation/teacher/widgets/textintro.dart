@@ -12,18 +12,15 @@ class TextIntro extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Welcome Mr(s) TeacherName",
+            Text("Welcome Mr(s) TeacherName",
                 style: TextStyle(
-              fontSize: 26,
-              fontFamily: "Noto_Sans",
-              fontWeight: FontWeight.bold,
-              color: ColorManager.darkPrimary)
-            ),
+                    fontSize: 26,
+                    fontFamily: "Noto_Sans",
+                    fontWeight: FontWeight.bold,
+                    color: ColorManager.darkPrimary)),
             SizedBox(
               height: 15,
             ),
-         
             RichText(
               textAlign: TextAlign.left,
               text: TextSpan(
@@ -37,13 +34,12 @@ class TextIntro extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   TextSpan(
-                    text:
-                        'Stand up for the teacher and glorify him....He could have been a messenger.',
-                   style: Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(fontWeight: FontWeight.w600,fontSize: 16)
-                  ),
+                      text:
+                          'Stand up for the teacher and glorify him....He could have been a messenger.',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w600, fontSize: 16)),
                   TextSpan(
                     text: '"',
                     style: TextStyle(fontWeight: FontWeight.bold),
@@ -51,8 +47,6 @@ class TextIntro extends StatelessWidget {
                 ],
               ),
             ),
-
-          
           ],
         ));
   }

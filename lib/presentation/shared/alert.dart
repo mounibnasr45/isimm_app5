@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isimm_app5/core/utils/routes_manager.dart';
+import 'package:isimm_app5/presentation/login/view/loginview.dart';
 
 import '../../core/utils/valurs_manager.dart';
 
@@ -66,7 +67,10 @@ class LoginAlert extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-           Navigator.of(context).popAndPushNamed(Routes.loginRoute); // Close the dialog when the button is pressed
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginView()),
+            );// Close the dialog when the button is pressed
           },
           child: Text(actionText),
         ),

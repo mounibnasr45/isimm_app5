@@ -1,88 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:isimm_app5/core/utils/color_manager.dart';
 import 'package:isimm_app5/core/utils/routes_manager.dart';
+import 'package:isimm_app5/presentation/login/cubit/login_state.dart';
 
 class HomeAppBar extends StatelessWidget {
   HomeAppBar({
     super.key,
     this.withprofile = true,
+    required this.mystate,
   });
+
+  final LoginState mystate;
   final bool withprofile;
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: Checkbox.width,
-      shadowColor: const Color.fromARGB(142, 232, 231, 231),
-      //toolbarHeight: 72.0,
-backgroundColor: ColorManager.backgroundColor,
-      title: Container(  
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 20),
-              height: 40,
-              child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text("ISI",
-                        style: TextStyle(
-                            fontSize: 38,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "DM_Serif_Display",
-                            color: Color.fromARGB(255, 3, 41, 72))),
-                    Text("MM",
-                        style: TextStyle(
-                            fontSize: 38,
-                            fontFamily: "DM_Serif_Display",
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(255, 115, 3, 3))),
-                  ]),
-            ),
-            Container(
-              height: 50,
-              child: const Padding(
-                padding: EdgeInsets.only(left: 15),
+        automaticallyImplyLeading: false,
+
+      title: Container(
+        child: ListTile(
+          title: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 5),
                 child: Text(
-                  "Higher Institute of Informatics\n and Mathematics of Monastir",
-                  style: TextStyle(
-                      fontSize: 9,
-                      //fontFamily: "DM_Serif_Display",
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 3, 41, 72)),
+                  "Hello",
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: const Color.fromARGB(170, 85, 83, 83),
+                      fontWeight: FontWeight.w600),
                 ),
               ),
-            )
-          ],
-        ),
-      ),
-      actions: [
-        GestureDetector(
-          onTap: () {
-            Navigator.pushReplacementNamed(context, Routes.profile);
-          },
-          child: Container(
-            margin: EdgeInsets.only(right: 20, top: 7,bottom: 3),
-            //height: 70,
-            //width: 65,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-            ),
+              Image.asset(
+                "assets/images/clapping.png",
+                height: 15,
+                color: const Color.fromARGB(255, 207, 192, 53),
+              )
+            ],
+          ),
+          subtitle: _buildSubtitle(context),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(Routes.profile);
+            },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: Image.asset(
                 "assets/images/professor_img.jpeg",
-                fit: BoxFit.scaleDown,
+                height: 45,
+                width: 45,
+                fit: BoxFit.cover,
               ),
+            ),
+          ),
+        ),
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(
+              Icons.notifications_active_outlined,
+              size: 28,
             ),
           ),
         )
       ],
     );
+  }
+
+  Widget _buildSubtitle(BuildContext context) {
+    if (mystate is LoginLoaded) {
+      final loginLoadedState = mystate as LoginLoaded;
+      return Text(
+        loginLoadedState.s.nom,
+        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: const Color.fromARGB(170, 0, 0, 0),
+              fontWeight: FontWeight.w600,
+            ),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }
