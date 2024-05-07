@@ -1,24 +1,23 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:isimm_app5/core/failure/failure.dart';
 import 'package:isimm_app5/data/data_source/remote_data_source/presencesheet.dart';
-import 'package:isimm_app5/data/models/studentdata.dart';
+import 'package:isimm_app5/data/data_source/studentAbsent.dart';
 import 'package:isimm_app5/domain/use_cases/presencesheetUseCase.dart';
 import 'package:isimm_app5/presentation/presences_heet/cubit/presence_state.dart';
 
 class PresenceSheetCubit extends Cubit<PresenceSheetState> {
-  PresenceSheetData m = PresenceSheetData(dio: Dio());
-  PresenceSheetCubit(this._presenceSheetUseCase)
-      : super(PresenceSheetStateInitial());
-  final PresenceSheetUseCase _presenceSheetUseCase;
+  PresenceSheetData m = PresenceSheetData();
+  PresenceSheetCubit() : super(PresenceSheetStateInitial());
+  final PresenceSheetUseCase _presenceSheetUseCase = PresenceSheetUseCase();
 
   void importStudents(String subject) async {
     emit(PresenceSheetStateloading());
+    print("subject from cubit $subject");
     int idsubj = nameSubjToID(subject);
     print("idsubj $idsubj");
-    final Either<Failure, List<StudentData>> result =
-        await _presenceSheetUseCase.execute("cpi1", idsubj);
+    final Either<Failure, List<studentAbs>> result =
+        await _presenceSheetUseCase.execute("cpi1", 3);
 
     result.fold((failure) {
       emit(PresenceSheetStateError());
@@ -48,7 +47,7 @@ class PresenceSheetCubit extends Cubit<PresenceSheetState> {
 
 int nameSubjToID(String name) {
   switch (name) {
-    case "algorithm":
+    case "algorithme":
       return 0;
     case "java":
       return 3;

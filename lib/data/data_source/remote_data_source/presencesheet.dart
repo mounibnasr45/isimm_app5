@@ -1,26 +1,26 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:isimm_app5/core/failure/failure.dart';
+import 'package:isimm_app5/data/data_source/studentAbsent.dart';
 import 'package:isimm_app5/presentation/shared/shared_functions.dart';
 import '../../../core/failure/error_handler.dart';
-import '../../models/studentdata.dart';
 
 class PresenceSheetData {
-  final Dio dio;
+  final Dio dio=Dio();
 
-  PresenceSheetData({required this.dio});
+  PresenceSheetData();
 
-  Future<Either<Failure, List<StudentData>>> findStudentByTd(
+  Future<Either<Failure, List<studentAbs>>> findStudentByTd(
       String tdName,int subject_id) async {
     int tdid = TdToInt(tdName);
     try {
       final response =
-          await dio.get('http://192.168.1.16:8080/student/getclass/$tdid/$subject_id');
+          await dio.get('http://192.168.1.16:8080/student/getclass/1/3');
 
       final List<dynamic> responseData = response.data;
 
-      final List<StudentData> students = responseData
-          .map((jsonList) => StudentData.fromJson(jsonList))
+      final List<studentAbs> students = responseData
+          .map((jsonList) => studentAbs.fromJson(jsonList))
           .toList();
 
       return Right(students);

@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:isimm_app5/core/app.dart';
 import 'package:isimm_app5/core/failure/failure.dart';
+import 'package:isimm_app5/data/data_source/remote_data_source/TeacherSchedule.dart';
 import 'package:isimm_app5/data/data_source/remote_data_source/auth.dart';
 import 'package:isimm_app5/data/models/studentdata.dart';
 import 'package:isimm_app5/data/repository/AuthRepoImpl.dart';
@@ -21,20 +22,15 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize ScreenUtil
 
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   initLoginModule();
-  // Initialize ScreenUtil with the MediaQuery data
-
- // runApp(DevicePreview(enabled: true, builder: (context) => MyAppWithCubit()));
-  runApp(MyAppWithCubit());
+  runApp(DevicePreview(enabled: true, builder: (context) => MyAppWithCubit()));
+  // runApp(MyAppWithCubit());
 }
 
 class MyAppWithCubit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       home: BlocProvider(
         create: (context) => LoginCubit(
           // Provide the necessary dependencies

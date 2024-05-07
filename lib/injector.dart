@@ -31,10 +31,16 @@ final instance = GetIt.instance;
 
 void initAppModule() {
   if (!GetIt.I.isRegistered<NetworkInfo>()) {
+    
+    // instance.registerLazySingleton<PresenceSheetData>(
+    //     () => PresenceSheetData(dio: Dio()));
     instance.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
  
-    instance.registerLazySingleton<SeanceRepository>(
-        () => SeanceRepositoryImpl(remoteDataSource: instance()));
+// instance.registerLazySingleton<SeanceRemoteDataSource>(
+//         () => SeanceRemoteDataSource(dio: Dio()));
+//     instance.registerLazySingleton<SeanceRepository>(
+//         () => SeanceRepositoryImpl(remoteDataSource: instance()));
+//          initSeanceTeacher();
   }
 }
 
@@ -42,22 +48,19 @@ void initLoginModule() {
   if (!GetIt.I.isRegistered<loginUseCase>()) {
     initAppModule();
     initSignupModule();
-    initSeanceTeacher();
-    initPresenceSheet();
-    initMarks();
+   
+     initPresenceSheet();
+   // initMarks();
     
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    instance.registerLazySingleton<SeanceRemoteDataSource>(
-        () => SeanceRemoteDataSource(dio: Dio()));
+    
  
-    instance.registerLazySingleton<PresenceSheetData>(
-        () => PresenceSheetData(dio: Dio()));
-    instance.registerLazySingleton<PresenceSheetRepo>(
-        () => PresenceSheetImpl(presencesheet: instance()));
-    instance.registerLazySingleton<MarksRequest>(() => MarksRequest(dio: Dio()));
-    instance.registerLazySingleton<MarksRepo>(
-        () => MarksRepositoryImpl(marksRequest: instance()));
+    // instance.registerLazySingleton<PresenceSheetRepo>(
+    //     () => PresenceSheetImpl(presencesheet: instance()));
+    // instance.registerLazySingleton<MarksRequest>(() => MarksRequest(dio: Dio()));
+    // instance.registerLazySingleton<MarksRepo>(
+    //     () => MarksRepositoryImpl(marksRequest: instance()));
     instance.registerFactory<loginUseCase>(() => loginUseCase(instance()));
     instance.registerFactory<LoginCubit>(() => LoginCubit(
           instance(),
@@ -78,19 +81,19 @@ void initSignupModule() {
   //instance.registerFactory<SignupUseCase>(() => SignupUseCase(instance()));
 }
 
-void initSeanceTeacher() {
-  instance.registerFactory<SeanceUseCase>(() => SeanceUseCase(instance()));
-  instance.registerFactory<ScheduleCubit>(() => ScheduleCubit(instance()));
-}
+// void initSeanceTeacher() {
+//   instance.registerFactory<SeanceUseCase>(() => SeanceUseCase(instance()));
+//   instance.registerFactory<ScheduleCubit>(() => ScheduleCubit(instance()));
+//   }
 
-void initPresenceSheet() {
-  instance.registerFactory<PresenceSheetUseCase>(
-      () => PresenceSheetUseCase(instance()));
+ void initPresenceSheet() {
+//   instance.registerFactory<PresenceSheetUseCase>(
+//       () => PresenceSheetUseCase(instance()));
   instance.registerFactory<PresenceSheetCubit>(
-      () => PresenceSheetCubit(instance()));
-}
+      () => PresenceSheetCubit());
+ }
 
-void initMarks() {
-  instance.registerFactory<MarksUseCase>(() => MarksUseCase(instance()));
-  instance.registerFactory<MarksCubit>(() => MarksCubit(instance()));
-}
+// void initMarks() {
+//   instance.registerFactory<MarksUseCase>(() => MarksUseCase(instance()));
+//   instance.registerFactory<MarksCubit>(() => MarksCubit(instance()));
+// }

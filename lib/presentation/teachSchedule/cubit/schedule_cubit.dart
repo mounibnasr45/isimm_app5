@@ -8,10 +8,10 @@ import 'package:isimm_app5/domain/use_cases/teacherschedule_UseCase.dart';
 import 'schedule_state.dart';
 
 class ScheduleCubit extends Cubit<ScheduleState> {
-  ScheduleCubit(this._seanceUseCase) : super(ScheduleInitial()) {
+  ScheduleCubit() : super(ScheduleInitial()) {
     importSeances(1);
   }
-  final SeanceUseCase _seanceUseCase;
+  final SeanceUseCase _seanceUseCase=SeanceUseCase();
   int currentday = 1;
   void importSeances(int newd) async {
      daychanged(newd);

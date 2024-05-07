@@ -8,9 +8,9 @@ import '../../domain/repository/teacherScheduleRepo.dart';
 import '../data_source/remote_data_source/TeacherSchedule.dart';
 
 class SeanceRepositoryImpl implements SeanceRepository {
-  final SeanceRemoteDataSource remoteDataSource;
+  final SeanceRemoteDataSource remoteDataSource= SeanceRemoteDataSource() ;
 
-  SeanceRepositoryImpl({required this.remoteDataSource});
+  SeanceRepositoryImpl();
 
   @override
   Future<Either<Failure, List<SeanceData>>> findSeancesByTeacherId(

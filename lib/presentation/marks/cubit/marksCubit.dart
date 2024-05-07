@@ -9,11 +9,11 @@ import 'package:isimm_app5/presentation/marks/cubit/marksState.dart';
 import 'package:isimm_app5/presentation/presences_heet/cubit/presence_state.dart';
 
 class MarksCubit extends Cubit<MarksState> {
-  MarksCubit(this._marksUseCase)
+  MarksCubit()
       : super(MarksStateInitial()) {
     importMarks();
   }
-  final MarksUseCase _marksUseCase;
+  final MarksUseCase _marksUseCase=MarksUseCase();
 
   void importMarks() async {
     emit(MarksLoading());

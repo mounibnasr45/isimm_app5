@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 2, 69, 63))),
 
-      initialRoute: Routes.loginRoute,
+      initialRoute: Routes.homeRoute,
     );
   }
 }

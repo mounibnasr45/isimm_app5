@@ -54,7 +54,9 @@ class _PresenceSheetState extends State<PresenceSheet> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          //context.read<PresenceSheetCubit>().importStudents();
+                          context
+                              .read<PresenceSheetCubit>()
+                              .importStudents(widget.subjectName);
                           return const MyAlertDialog(
                             title: "Absent Added",
                             message: 'Return to Precedent Page',
@@ -155,16 +157,14 @@ class _PresenceSheetState extends State<PresenceSheet> {
                                                 const Padding(
                                                     padding: EdgeInsets.all(5),
                                                     child: Text("Present")),
-                                                Checkbox(
-                                                    value:
-                                                        isPresentMap[index] ??
-                                                            true,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        isPresentMap[index] =
-                                                            value ?? false;
-                                                      });
-                                                    }),
+                                               Checkbox(
+  value: isAbsentMap[index] == null ? true : !isAbsentMap[index]!,
+  onChanged: (value) {
+    setState(() {
+      isAbsentMap[index] = value ?? false;
+    });
+  },
+),
                                                 const Spacer(),
                                                 const Padding(
                                                     padding: EdgeInsets.all(5),
@@ -182,9 +182,9 @@ class _PresenceSheetState extends State<PresenceSheet> {
                                                 const Padding(
                                                     padding: EdgeInsets.all(5),
                                                     child: Text("Absent NB:")),
-                                                // Text(state.Liststudents[index]
-                                                //     .nbAbsent
-                                                //     .toString()),
+                                                Text(state.Liststudents[index]
+                                                    .nb_absent
+                                                    .toString()),
                                                 const SizedBox(
                                                   width: 20,
                                                 ),

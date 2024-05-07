@@ -31,13 +31,15 @@ class WeekDayView extends StatelessWidget {
           itemCount: SeanceList.length,
           itemBuilder: (context, index) {
             SeanceData currentSeance = SeanceList[index];
+            print("currentSeance ${currentSeance.subjectName}");
             return Container(
               margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: GestureDetector(
                 onTap: () {
-  Navigator.of(context).pushNamed(Routes.presentsheet, arguments:currentSeance.subjectName);
-},
-
+                  //print("current subj ${currentSeance.subjectName}");
+                  Navigator.of(context).pushNamed(Routes.presentsheet,
+                      arguments: currentSeance.subjectName);
+                },
                 child: Card(
                   elevation: 10,
                   child: ListTile(
@@ -61,8 +63,9 @@ class WeekDayView extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.w700)),
                       leading: IconButton(
                           onPressed: () {
-                            Navigator.of(context)
-                                .pushNamed(Routes.presentsheet);
+                            print("current subj ${currentSeance.subjectName}");
+                           Navigator.of(context).pushNamed(Routes.presentsheet,
+                      arguments: currentSeance.subjectName);
                           },
                           icon: Icon(
                             Icons.check_box,

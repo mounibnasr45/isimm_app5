@@ -6,15 +6,15 @@ import 'package:isimm_app5/core/failure/failure.dart';
 import 'package:isimm_app5/data/models/seance.dart';
 
 class SeanceRemoteDataSource {
-  final Dio dio;
+  final Dio dio=Dio();
 
-  SeanceRemoteDataSource({required this.dio});
+  SeanceRemoteDataSource();
 
   Future<Either<Failure, List<SeanceData>>> findSeancesByTeacherId(
       int teacherId,int newday) async {
     try {
       final response =
-          await dio.get('http://http://192.168.1.16:8080/seance/teacher/$teacherId/$newday');
+          await dio.get('http://192.168.1.16:8080/seance/teacher/$teacherId/$newday');
      // print("heeeeeeeeeeeey $response");
       final List<dynamic> responseData = response.data; // Modified this line
      // print("cccc $responseData");

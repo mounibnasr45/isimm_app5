@@ -9,7 +9,7 @@ import 'package:isimm_app5/presentation/marks/cubit/marksState.dart';
 
 class Marks extends StatelessWidget {
   Marks({Key? key});
-  final MarksCubit _marksCubit = instance<MarksCubit>();
+  final MarksCubit _marksCubit = MarksCubit();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

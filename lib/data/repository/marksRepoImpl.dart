@@ -6,9 +6,9 @@ import 'package:isimm_app5/data/models/marksData.dart';
 import 'package:isimm_app5/domain/repository/marksRepo.dart';
 
 class MarksRepositoryImpl implements MarksRepo {
-  final MarksRequest marksRequest;
+  final MarksRequest marksRequest=MarksRequest();
 
-  MarksRepositoryImpl({required this.marksRequest});
+  MarksRepositoryImpl();
 
   @override
   Future<Either<Failure, List<MarksData>>> findmarksbystudent(

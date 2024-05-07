@@ -17,7 +17,7 @@ class TaecherSchedule extends StatefulWidget {
 }
 
 class _TaecherScheduleState extends State<TaecherSchedule> {
-  final ScheduleCubit _ScheduleCubit = instance<ScheduleCubit>();
+  final ScheduleCubit _ScheduleCubit = ScheduleCubit();
   DatePickerController _controller = DatePickerController();
 
   DateTime _selectedDayValue = DateTime.now();
@@ -36,7 +36,7 @@ class _TaecherScheduleState extends State<TaecherSchedule> {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.arrow_back)),
-           // elevation: 20,
+            // elevation: 20,
             title: Text(
               "Schedule Screen",
               style: Theme.of(context).textTheme.headlineSmall!.copyWith(),
@@ -182,7 +182,8 @@ class _TaecherScheduleState extends State<TaecherSchedule> {
                             SeanceList: state.l,
                           ))
                         : Container(
-                            child: const CircularProgressIndicator(),
+                            child: Center(
+                                child: const CircularProgressIndicator()),
                           );
                   },
                 ),

@@ -7,9 +7,9 @@ import '../../../core/failure/error_handler.dart';
 import '../../models/studentdata.dart';
 
 class MarksRequest {
-  final Dio dio;
+  final Dio dio=Dio();
 
-  MarksRequest({required this.dio});
+  MarksRequest();
 
   Future<Either<Failure, List<MarksData>>> findMarksByStudent(
       int id_student) async {

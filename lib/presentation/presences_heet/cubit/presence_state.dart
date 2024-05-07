@@ -1,10 +1,12 @@
 import 'package:isimm_app5/data/models/studentdata.dart';
 
+import '../../../data/data_source/studentAbsent.dart';
+
 abstract class PresenceSheetState {}
 
 class PresenceSheetStateLoaded extends PresenceSheetState {
   PresenceSheetStateLoaded({required this.Liststudents});
-  final List<StudentData> Liststudents;
+  final List<studentAbs> Liststudents;
 }
 
 class PresenceSheetStateloading extends PresenceSheetState {}
